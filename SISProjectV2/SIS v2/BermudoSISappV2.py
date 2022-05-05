@@ -53,7 +53,6 @@ def addRow(idNo,fullName,yearLevel,gender,course):
     db.commit()
 
 
-
 def deleteRow(row):
     mydb.execute(f"DELETE FROM STUDENT WHERE rowNo = {row}")
     db.commit() 
@@ -301,16 +300,28 @@ class SISgui(QMainWindow):
 
     def findStudent(self):
         idnumber = self.searchBar.text()
+
         if(idnumber == ''):
             return
-            
+
+        if(self.checkIDformat(idnumber) == False):
+            self.error_dialog.showMessage('Invalid ID Number')
+            self.searchBar.clear()
+            return
+
+        mydb.execute(f"SELECT rowNo, idNo, fullName, yearLevel, gender, courseCode from STUDENT WHERE idNo = '{idnumber}'")
+        row = mydb.fetchone()
+
+        if (row == None):
+            self.error_dialog.showMessage('Student with this ID Number does not exist.')
+            self.searchBar.clear()
+            return
+
         self.clear_table()
         self.tableWidget.setColumnCount(6)
         self.tableWidget.setRowCount(1)
         self.tableWidget.setHorizontalHeaderLabels(self.headerLabels)
         
-        mydb.execute(f"SELECT rowNo, idNo, fullName, yearLevel, gender, courseCode from STUDENT WHERE idNo = '{idnumber}'")
-        row = mydb.fetchone()
         for i in range(5):
             if i == 4:
                 self.tableWidget.setItem(0, i, QTableWidgetItem(str(getCourseName(row[i+1]))))
@@ -321,13 +332,24 @@ class SISgui(QMainWindow):
 
 
 
-        #self.error_dialog.showMessage('Student does not exist.')
-        #self.searchBar.clear()
-        # self.error_dialog.showMessage('Invalid ID Number format. e.g.(2020-1971)')
-        # self.searchBar.clear()
+        
         self.fromSearch = True
         return True
-
+        
+    def checkIDformat(self, idNumber):
+        if len(idNumber)!= 9:
+            return False
+        for i in range(len(idNumber)):
+            if i != 4:
+                try:
+                    int(idNumber[i])
+                except:
+                    return False
+            if i == 4:
+                if idNumber[i] != '-':
+                    return False
+        return True
+        
 
 
 if __name__ == '__main__':
