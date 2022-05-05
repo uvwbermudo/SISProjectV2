@@ -362,6 +362,8 @@ if __name__ == '__main__':
         sys.exit(app.exec_())
     except (SystemExit):
         print("Closing window...")
+        mydb.execute("SET @num := 0; UPDATE student SET rowNo = @num := (@num+1); ALTER TABLE student AUTO_INCREMENT =1;") #resets the row numbers
+        db.commit()
 
 
 
