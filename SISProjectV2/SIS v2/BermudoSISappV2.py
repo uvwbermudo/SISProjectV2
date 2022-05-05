@@ -39,7 +39,6 @@ def getRow(row):
 def updateRow(row,idNo,fullName,yearLevel,gender,course):    
     if(checkIdDup(idNo, row)):
         return False
-
     mydb.execute(f"UPDATE STUDENT SET fullName = '{fullName}', idNo = '{idNo}', yearLevel = '{yearLevel}', gender = '{gender}', courseCode = '{course}'  WHERE rowNo = {row}")
     db.commit()
 
@@ -265,7 +264,7 @@ class SISgui(QMainWindow):
         
 
 
-    def displayData(self):                           #yoinked the code from https://www.youtube.com/watch?v=HDjc3w1W9oA
+    def displayData(self):                                      #yoinked the code from https://www.youtube.com/watch?v=HDjc3w1W9oA
         hheader = self.tableWidget.horizontalHeader()           #stole this from https://www.tutorialexample.com/pyqt-table-set-adaptive-width-to-fit-resized-window-a-beginner-guide-pyqt-tutorial/
         hheader.setSectionResizeMode(QHeaderView.Stretch)
         vheader = self.tableWidget.verticalHeader()
@@ -354,8 +353,7 @@ if __name__ == '__main__':
         sys.exit(app.exec_())
     except (SystemExit):
         print("Closing window...")
-        mydb.execute("SET @num := 0; UPDATE student SET rowNo = @num := (@num+1); ALTER TABLE student AUTO_INCREMENT =1;") #resets the row numbers
-        db.commit()
+        mydb.execute("SET @num := 0; UPDATE student SET rowNo = @num := (@num+1); ALTER TABLE student AUTO_INCREMENT=1;") #resets the row numbers 
 
 
 
