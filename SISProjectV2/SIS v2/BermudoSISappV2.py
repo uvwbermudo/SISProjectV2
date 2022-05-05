@@ -2,12 +2,10 @@
 
 import mysql
 import mysql.connector
-from distutils import core
-from importlib.resources import path
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QFileDialog, QTableWidgetItem, QHeaderView, QErrorMessage, QPushButton, QHBoxLayout, QMessageBox
+from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QTableWidgetItem, QHeaderView, QErrorMessage, QPushButton, QHBoxLayout, QMessageBox
 from PyQt5 import uic, QtCore
-import os
+
 
 
 #cursor for manipulating database
@@ -63,6 +61,7 @@ def getCourseName(courseCode):
     row = mydb.fetchone()
     return row[0]
 
+
 def getCourseCode(text):
     text = text.split(' ')
     text = text[0]
@@ -102,7 +101,7 @@ class EDITform(QMainWindow):
             self.error_dialog.showMessage('Invalid ID Number format!')
             return
 
-        fullName = self.nameField.text()
+        fullName = (self.nameField.text()).title()
         if (fullName == ''):
             self.error_dialog.showMessage('Name field cannot be blank!')
             return
@@ -168,8 +167,6 @@ class ADDform(QMainWindow):
         self.close()
         self.idField.clear()
         self.nameField.clear()
-        self.courseField.clear()
-        self.yearField.clear()
         mygui.refresh()
     
 
@@ -198,7 +195,6 @@ class SISgui(QMainWindow):
         self.searchButton.pressed.connect(self.findStudent)                         
         self.showButton.pressed.connect(self.refresh)
         self.headerLabels =['ID Number','Full Name','Year Level','Gender','Course Code','Action']
-        self.fromSearch = False
         # error message object
         self.error_dialog = QErrorMessage()
         self.error_dialog.setWindowTitle('Error')
@@ -329,12 +325,8 @@ class SISgui(QMainWindow):
             self.tableWidget.setItem(0, i, QTableWidgetItem(str(row[i+1])))
         actionWidget = self.makeButtons(row[0])
         self.tableWidget.setCellWidget(0, 5, actionWidget)
-
-
-
-        
-        self.fromSearch = True
         return True
+        
         
     def checkIDformat(self, idNumber):
         if len(idNumber)!= 9:
