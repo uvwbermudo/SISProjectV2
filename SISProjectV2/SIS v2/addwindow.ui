@@ -44,7 +44,7 @@
      <string>Done</string>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -129,58 +129,7 @@
       </widget>
      </item>
      <item row="2" column="1" colspan="2">
-      <widget class="QComboBox" name="courseField">
-       <item>
-        <property name="text">
-         <string>BSCS - Computer Science</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>BSIT - Information Techonology</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>BSIS - Information Systems</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>BSBA - Business Administration</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>BSHRM - Hotel and Restaurant Management</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>BSEE - Elementary Education</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>BSCE - Computer Engineering</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>BSME - Mechanical Engineering</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>BAPS - Political Science</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>BSEET - Environmental Engineering Technology</string>
-        </property>
-       </item>
-      </widget>
+      <widget class="QComboBox" name="courseField"/>
      </item>
      <item row="4" column="1">
       <widget class="QComboBox" name="genderField">
